@@ -14,40 +14,51 @@ const App = () => {
     {
       id: 1,
       paciente: 'may',
-      propientario: 'Turi',
-      sintomas: 'test hfdgkjlhfdjkg dfgdflhgjlk dfghjkd herkerjtlker tjerthkerhtjkwh ',
+      propietario: 'Turi',
+      sintomas: 'test  ',
     },
     {
       id: 2,
       paciente: 'lucia',
-      propientario: 'Isaac',
-      sintomas: 'El paciente ingreso jstjer tjerhtjkreth ertk etkjer tret rhtkre htjkreht rlt hkljth rejt ejrlk tet jehltkherjlt tjk',
+      propietario: 'Isaac',
+      sintomas: 'El paciente ',
     },
     {
       id: 3,
       paciente: 'nose',
-      propientario: 'Turi',
-      sintomas: 'El paciente ingreso sdfrk gfkgfdjg kjfds gkjf gkjfdgh fdjg fdhlgj fjgf gfgh gkjlfhjkgf ghf lkgjdf kljg ljh fjkl gfdjklghjk kfldj ghfdk gflkgflgdfs jlkghflgkjhljkghs dkljgfkljg hdklg dfgkhfjkghs ghs dlhglkfdjgl df lhgkljh gkjldgjglfdh gjf gjf ghfj ghdfsjlkghjdklghlsdhgldsjhgdfl jgh dflkg dfkllfjkdgfdkljhfjklhgjkfdhgfjdkhg fdjkhg fdkjlhg fdkjlghjkdfhgjklfshglfjkhg fldjkhg    kfljgjfkldhg  dfkhjgjklf fdlkjgh',
+      propietario: 'Turi',
+      sintomas: 'El paciente',
     },
     {
       id: 4,
       paciente: 'tampoco se',
-      propientario: 'Isaac',
+      propietario: 'Isaac',
       sintomas: 'El paciente ingreso',
     },
     {
       id: 5,
       paciente: 'tampoco se',
-      propientario: 'Isaac',
+      propietario: 'Isaac',
       sintomas: 'El paciente ingreso',
     },
   ]);
+
+   // setQuotes((newQuotes) => {
+    //   return (newQuotes = newQuotes.filter(quotes => quotes.id !== id));
+    // })
+  const deleteQuote = (id) => {
+    console.log('State viejo:', quotes)
+    const newQuotes = quotes.filter(quote => quote.id !== id);
+    setQuotes(newQuotes);
+    console.log('New State:', quotes)
+  }
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" />
-        <Text style={styles.title}>Administador de citas</Text>
-        <QuoteList quotes={quotes}/>
+        <Text style={styles.title}>Citas</Text>
+        <QuoteList quotes={quotes} deleteQuote={deleteQuote} />
       </View>
     </SafeAreaView>
   );
@@ -62,7 +73,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     marginVertical: 20,
-    textAlign: 'center'
   },
 });
 

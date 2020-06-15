@@ -2,13 +2,17 @@ import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native'
 
 const Quote = ({
+  id,
   paciente,
   sintomas,
-  propientario,
+  deleteQuote,
+  propietario,
 }) => {
 
   const onDeleteQuotes = () => {
-    Alert.alert('Atención', 'Estas seguro de eliminar esta cita?');
+    console.log('Id del array', id)
+    // Alert.alert('Atención', 'Estas seguro de eliminar esta cita?');
+    deleteQuote(id)
   }
 
   return (
@@ -20,7 +24,7 @@ const Quote = ({
         </View>
         <View style={styles.containerInfo}>
           <Text style={styles.label}>Propietario:</Text>
-          <Text style={styles.text}>{propientario}</Text>
+          <Text style={styles.text}>{propietario}</Text>
         </View>
         <View style={styles.containerInfo}>
           <Text style={styles.label}>Sintomas:</Text>
