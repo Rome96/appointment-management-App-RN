@@ -6,12 +6,15 @@ import {
   Button,
   TextInput,
   StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 
 
 const Form = () => {
+  const [date, setDate] = useState('')
+  const [time, setTime] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
   //=========== Date ===========//
   const showDatePicker = () => {
@@ -23,7 +26,13 @@ const Form = () => {
   };
 
   const handleConfirmDate = date => {
-    console.warn('A date has been picked: ', date);
+    const options = {
+      month: 'long',
+      day: '2-digit',
+      year: 'numeric',
+    };
+    const formatDate = date.toLocaleDateString('es-ES', options);
+    setDate(formatDate)
     hideDatePicker();
   };
 
@@ -37,14 +46,18 @@ const Form = () => {
   };
 
   const handleConfirmTime = time => {
-    console.warn('A Time has been picked: ', time);
+    const options = { hour: 'numeric', minute: '2-digit' }
+    const formarTime = time.toLocaleString('en-US', options);
+    setTime(formarTime)
     hideTimePicker();
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.containerInput}>
-        <Text style={styles.label}>Nombre</Text>
+        <Text style={styles.label}>
+          Nombre
+        </Text>
         <TextInput
           style={styles.input}
           onChangeText={text => console.log(text)}
@@ -52,15 +65,19 @@ const Form = () => {
         />
       </View>
       <View style={styles.containerInput}>
-        <Text style={styles.label}>Propietario</Text>
+        <Text style={styles.label}>
+          Propietario
+        </Text>
         <TextInput
           style={styles.input}
-          onChangeText={text => console.log(text)}
           placeholder="Nombre del dueño"
+          onChangeText={text => console.log(text)}
         />
       </View>
       <View style={styles.containerInput}>
-        <Text style={styles.label}>Telefono</Text>
+        <Text style={styles.label}>
+          Telefono
+        </Text>
         <TextInput
           style={styles.input}
           keyboardType="number-pad"
@@ -69,7 +86,17 @@ const Form = () => {
         />
       </View>
       <View style={styles.containerInput}>
-        <Button title="Fecha" onPress={showDatePicker} />
+        <Text style={styles.label}>
+          Fecha
+        </Text>
+        <TouchableOpacity
+          onPress={showDatePicker}
+          style={styles.button}
+        >
+          <Text style={styles.textButton}>
+            Selecciona Fecha &or;
+          </Text>
+        </TouchableOpacity>
         <DateTimePickerModal
           mode="date"
           locale="es_ES"
@@ -80,9 +107,20 @@ const Form = () => {
           isVisible={isDatePickerVisible}
           headerTextIOS="Selecciona una fecha"
         />
+        <Text style={styles.textResultPicker}>
+          {date}
+        </Text>
       </View>
       <View>
-        <Button title="Hora" onPress={showTimePicker} />
+        <Text style={styles.label}>Hora</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={showTimePicker}
+        >
+          <Text style={styles.textButton}>
+            Selecciona Hora &or;
+          </Text>
+        </TouchableOpacity>
         <DateTimePickerModal
           mode="time"
           cancelTextIOS="Cancelar"
@@ -92,14 +130,19 @@ const Form = () => {
           isVisible={isTimePickerVisible}
           headerTextIOS="Selecciona una hora"
         />
+        <Text style={styles.textResultPicker}>
+          {time}
+        </Text>
       </View>
       <View style={styles.containerInput}>
-        <Text style={styles.label}>Sintomas</Text>
+        <Text style={styles.label}>
+          Sintomas
+        </Text>
         <TextInput
           multiline
           style={styles.input}
-          onChangeText={text => console.log(text)}
           placeholder="Sintomas que presenta"
+          onChangeText={text => console.log(text)}
         />
       </View>
     </View>
@@ -131,6 +174,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderColor: '#0f4c75',
     backgroundColor: '#FFF',
+  },
+  button: {
+    paddingLeft: 5,
+    borderRadius: 10,
+    marginVertical: 5,
+    paddingVertical: 10,
+    backgroundColor: '#ddf3f5',
+  },
+  textButton: {
+    fontSize: 15,
+    color: '#1f4068',
+    fontWeight: '500',
+  },
+  textResultPicker: {
+    fontSize: 15,
+    color: '#0f4c75',
+    marginVertical: 5,
   },
 });
  
