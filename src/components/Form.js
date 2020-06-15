@@ -72,18 +72,25 @@ const Form = () => {
         <Button title="Fecha" onPress={showDatePicker} />
         <DateTimePickerModal
           mode="date"
+          locale="es_ES"
+          cancelTextIOS="Cancelar"
+          confirmTextIOS="Confirmar"
           onCancel={hideDatePicker}
           onConfirm={handleConfirmDate}
           isVisible={isDatePickerVisible}
+          headerTextIOS="Selecciona una fecha"
         />
       </View>
       <View>
         <Button title="Hora" onPress={showTimePicker} />
         <DateTimePickerModal
           mode="time"
+          cancelTextIOS="Cancelar"
+          confirmTextIOS="Confirmar"
           onCancel={hideTimePicker}
           onConfirm={handleConfirmTime}
           isVisible={isTimePickerVisible}
+          headerTextIOS="Selecciona una hora"
         />
       </View>
       <View style={styles.containerInput}>
