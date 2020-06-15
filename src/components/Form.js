@@ -12,7 +12,11 @@ import {
 
 const Form = () => {
   const [date, setDate] = useState('')
+  const [name, setName] = useState('');
   const [time, setTime] = useState('');
+  const [phone, setPhone] = useState('');
+  const [symptoms, setSymptoms] = useState('');
+  const [proprietary, setProprietary] = useState('')
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
 
@@ -54,13 +58,16 @@ const Form = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.containerTitle}>
+        <Text style={styles.title}>Agregar Cita</Text>
+      </View>
       <View style={styles.containerInput}>
         <Text style={styles.label}>
           Nombre
         </Text>
         <TextInput
           style={styles.input}
-          onChangeText={text => console.log(text)}
+          onChangeText={text => setName(text)}
           placeholder="Nombre de la macota"
         />
       </View>
@@ -71,7 +78,7 @@ const Form = () => {
         <TextInput
           style={styles.input}
           placeholder="Nombre del dueño"
-          onChangeText={text => console.log(text)}
+          onChangeText={text => setProprietary(text)}
         />
       </View>
       <View style={styles.containerInput}>
@@ -82,7 +89,7 @@ const Form = () => {
           style={styles.input}
           keyboardType="number-pad"
           placeholder="Numero de contacto"
-          onChangeText={text => console.log(text)}
+          onChangeText={text => setPhone(text)}
         />
       </View>
       <View style={styles.containerInput}>
@@ -93,7 +100,7 @@ const Form = () => {
           onPress={showDatePicker}
           style={styles.button}
         >
-          <Text style={styles.textButton}>
+          <Text style={styles.textButtonPicker}>
             Selecciona Fecha &or;
           </Text>
         </TouchableOpacity>
@@ -117,7 +124,7 @@ const Form = () => {
           style={styles.button}
           onPress={showTimePicker}
         >
-          <Text style={styles.textButton}>
+          <Text style={styles.textButtonPicker}>
             Selecciona Hora &or;
           </Text>
         </TouchableOpacity>
@@ -142,19 +149,40 @@ const Form = () => {
           multiline
           style={styles.input}
           placeholder="Sintomas que presenta"
-          onChangeText={text => console.log(text)}
+          onChangeText={text => setSymptoms(text)}
         />
       </View>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        onPress={() => alert('Agregado')}
+        style={styles.buttonAdd}
+      >
+        <Text style={styles.textButton}>
+          &rarr; Agregar
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingTop: 10,
     borderRadius: 10,
     paddingHorizontal: 10,
     backgroundColor: '#FFF',
+    paddingBottom: 30
+  },
+  containerTitle: {
+    marginVertical: 10,
+    borderBottomWidth: 2,
+    borderBottomColor: '#438a5e',
+  },
+  title: {
+    fontSize: 23,
+    color: '#0f4c75',
+    fontWeight: '700',
+    marginVertical: 10,
   },
   containerInput: {
     marginVertical: 8,
@@ -162,7 +190,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: '500',
-    marginBottom: 3,
+    marginBottom: 5,
   },
   input: {
     height: 50,
@@ -182,7 +210,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: '#ddf3f5',
   },
-  textButton: {
+  textButtonPicker: {
     fontSize: 15,
     color: '#1f4068',
     fontWeight: '500',
@@ -191,6 +219,19 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#0f4c75',
     marginVertical: 5,
+  },
+  buttonAdd: {
+    padding: 10,
+    marginVertical: 5,
+    marginHorizontal: 20,
+    borderRadius: 20,
+    backgroundColor: '#438a5e',
+  },
+  textButton: {
+    fontSize: 16,
+    color: '#FFF',
+    fontWeight: '600',
+    textAlign: 'center',
   },
 });
  
