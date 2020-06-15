@@ -3,7 +3,7 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   View,
   Text,
-  Button,
+  Alert,
   TextInput,
   StyleSheet,
   TouchableOpacity
@@ -55,7 +55,28 @@ const Form = () => {
     setTime(formarTime)
     hideTimePicker();
   };
+//===================================//
 
+const createQuote = () => {
+    if(
+      name.trim() === '' ||
+      date.trim() === '' ||
+      time.trim() === '' ||
+      phone.trim() === '' ||
+      symptoms.trim() === '' ||
+      proprietary.trim() === '' 
+    ){
+      Alert.alert(
+        'Ups!',
+        'Todos los campos son obligatorios',
+        [{
+          text: 'Ok.'
+        }]
+      )
+    } else {
+      alert('Todo bien')
+    }
+}
   return (
     <View style={styles.container}>
       <View style={styles.containerTitle}>
@@ -154,7 +175,7 @@ const Form = () => {
       </View>
       <TouchableOpacity
         activeOpacity={0.6}
-        onPress={() => alert('Agregado')}
+        onPress={createQuote}
         style={styles.buttonAdd}
       >
         <Text style={styles.textButton}>
@@ -167,11 +188,10 @@ const Form = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    paddingVertical: 10,
     borderRadius: 10,
     paddingHorizontal: 10,
     backgroundColor: '#FFF',
-    paddingBottom: 30
   },
   containerTitle: {
     marginVertical: 10,
@@ -222,7 +242,7 @@ const styles = StyleSheet.create({
   },
   buttonAdd: {
     padding: 10,
-    marginVertical: 5,
+    marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 20,
     backgroundColor: '#438a5e',
