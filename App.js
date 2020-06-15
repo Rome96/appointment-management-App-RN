@@ -8,7 +8,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import QuoteList from './src/components/QuoteList'
-
+import Form from './src/components/Form'
 const App = () => {
   const [quotes, setQuotes] = useState([
     {
@@ -47,19 +47,21 @@ const App = () => {
     //   return (newQuotes = newQuotes.filter(quotes => quotes.id !== id));
     // })
   const deleteQuote = (id) => {
-    console.log('State viejo:', quotes)
     const newQuotes = quotes.filter(quote => quote.id !== id);
     setQuotes(newQuotes);
-    console.log('New State:', quotes)
   }
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <Text style={styles.title}>Citas</Text>
+      <StatusBar barStyle="dark-content" />
+      <ScrollView style={styles.container}>
+        <Text style={styles.titleHeader}>Citas</Text>
+        <Form/>
+        <Text style={styles.title}>
+          {quotes.length ? 'Administra tus citas' : 'No hay citas'}
+        </Text>
         <QuoteList quotes={quotes} deleteQuote={deleteQuote} />
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -68,11 +70,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#EEE',
+  },
+  titleHeader: {
+    fontSize: 30,
+    color: '#393e46',
+    fontWeight: 'bold',
+    marginVertical: 20,
   },
   title: {
-    fontSize: 30,
-    marginVertical: 20,
+    fontSize: 23,
+    marginVertical: 10,
+    color: '#0f4c75',
+    fontWeight: '700',
   },
 });
 

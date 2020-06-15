@@ -6,8 +6,9 @@ const QuoteList = ({quotes, deleteQuote}) => {
   return (
     <View style={{flex: 1}}>
       <FlatList
-        extraData={quotes}
         data={quotes}
+        scrollEnabled
+        extraData={quotes}
         keyExtractor={(item, index) => `quotes__${item.id}${index}`}
         renderItem={({item}) => (
           <Quote
