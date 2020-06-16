@@ -15,7 +15,7 @@ const Quote = ({
   const onDeleteQuotes = () => deleteQuote(id)
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       <View style={styles.container}>
         <View style={styles.containerInfo}>
           <Text style={styles.label}>Paciente:</Text>
@@ -48,7 +48,7 @@ const Quote = ({
           <Text style={styles.textButton}>Eliminar &times;</Text>
         </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
