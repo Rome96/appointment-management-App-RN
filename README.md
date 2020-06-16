@@ -2,10 +2,20 @@
  application to create and delete appointments, created with RN CLI
  
 ## Available Scripts
-### `yarn` 
+### -------------------------
+### `Install dependence` 
+## `yarn`
 o
-### `npm install`
-### `npx react-native run-ios`
-### `npx react-native run-android`
+## `npm install`
+### ---------------------------
+
+### Run App
+## `npx react-native run-ios`
+## `npx react-native run-android`
+
+### ---------------------------
+Form App
+![Form]('./form.png')
+
 
 
