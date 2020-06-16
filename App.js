@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
+import Form from './src/components/Form'
+import QuoteList from './src/components/QuoteList'
 import {
   View,
   Text,
@@ -7,17 +9,24 @@ import {
   SafeAreaView,
   TouchableOpacity
 } from 'react-native';
-import QuoteList from './src/components/QuoteList'
-import Form from './src/components/Form'
+
 const App = () => {
   const [showForm, setShowForm] = useState(true)
   const [quotes, setQuotes] = useState([]);
 
+  // const deleteQuote = useCallback(
+  //   (id) => {
+  //     const newQuotes = [...quotes];
+  //     console.log('FILTROO', newQuotes, id, _.findIndex(newQuotes, {id}));
+  //     const turi = newQuotes.splice(_.findIndex(newQuotes, {id}), 1);
+  //     setQuotes(newQuotes);
+  //   },
+  //   [quotes],
+  // )
+
   const deleteQuote = (id) => {
-    console.log('citas antes', quotes)
     const newQuotes = quotes.filter(quote => quote.id !== id);
     setQuotes(newQuotes);
-    console.log('citas despues', quotes);
   }
 
   const onShowForm = () => (
