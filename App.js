@@ -1,6 +1,8 @@
 import React, {useState, useCallback} from 'react';
 import Form from './src/components/Form'
+import { Provider } from 'react-redux'
 import QuoteList from './src/components/QuoteList'
+import store from './src/redux/store/index'
 import {
   View,
   Text,
@@ -33,41 +35,43 @@ const App = () => {
     setShowForm(!showForm)
   )
   return (
-    <SafeAreaView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-      <StatusBar barStyle="dark-content" />
-      <Text style={styles.titleHeader}>Citas</Text>
-      <View style={styles.container}>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={onShowForm}
-          style={styles.buttonShowForm}>
-          <Text style={styles.textButton}>
-            {
-              showForm ? 'Ver citas' : 'Crear una nueva cita'
-            }
-          </Text>
-        </TouchableOpacity>
-        {
-          showForm ? (
-            <Form
-              quotes={quotes}
-              setShowForm={setShowForm}
-              setQuotes={setQuotes}
-            /> 
-          ):(
-            <>
-              <Text style={styles.title}>
-                {quotes.length ? 'Administra tus citas' : 'No hay citas'}
-              </Text>
-              <QuoteList
+    <Provider store={store}>
+      <SafeAreaView style={{flex: 1}} showsVerticalScrollIndicator={false}>
+        <StatusBar barStyle="dark-content" />
+        <Text style={styles.titleHeader}>Citas</Text>
+        <View style={styles.container}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={onShowForm}
+            style={styles.buttonShowForm}>
+            <Text style={styles.textButton}>
+              {
+                showForm ? 'Ver citas' : 'Crear una nueva cita'
+              }
+            </Text>
+          </TouchableOpacity>
+          {
+            showForm ? (
+              <Form
                 quotes={quotes}
-                deleteQuote={deleteQuote}
-              />    
-            </>
-          ) 
-        }
-      </View>
-    </SafeAreaView>
+                setShowForm={setShowForm}
+                setQuotes={setQuotes}
+              /> 
+            ):(
+              <>
+                <Text style={styles.title}>
+                  {quotes.length ? 'Administra tus citas' : 'No hay citas'}
+                </Text>
+                <QuoteList
+                  quotes={quotes}
+                  deleteQuote={deleteQuote}
+                />    
+              </>
+            ) 
+          }
+        </View>
+      </SafeAreaView>
+    </Provider>
   );
 };
 

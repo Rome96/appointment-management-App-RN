@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
+import {connect} from 'react-redux';
+import { addQuote } from '../redux/actions/index'
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   View,
@@ -11,7 +13,6 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
 } from 'react-native';
-
 
 const Form = ({quotes, setQuotes, setShowForm}) => {
   const [date, setDate] = useState('')
@@ -82,7 +83,8 @@ const createQuote = () => {
     //asignar un ID
     quote.id = uuidv4()
     
-    setQuotes([...quotes, quote]);
+    // setQuotes([...quotes, quote]);
+    addQuote([...quotes, quote]);
 
     setShowForm(false)
 }
@@ -248,5 +250,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+const mapStateToProps = ({ quotes }) => ({
+  quotes: quotes.quotes
+});
  
-export default Form;
+const mapDispatchToProps = (dispatch) => ({
+  addQuote: (quotes) => {
+    return dispatch(addQuote(quotes))
+  },
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form)
