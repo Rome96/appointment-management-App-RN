@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {v4 as uuidv4} from 'uuid';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   View,
@@ -6,11 +7,12 @@ import {
   Alert,
   TextInput,
   StyleSheet,
+  ScrollView,
   TouchableOpacity
 } from 'react-native';
 
 
-const Form = () => {
+const Form = ({quotes, setQuotes, setShowForm}) => {
   const [date, setDate] = useState('')
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
@@ -73,116 +75,123 @@ const createQuote = () => {
           text: 'Ok.'
         }]
       )
-    } else {
-      alert('Todo bien')
     }
+    const quote = {name, date, time, phone, symptoms, proprietary};
+    //asignar un ID
+    quote.id = uuidv4()
+    
+    setQuotes([...quotes, quote]);
+
+    setShowForm(false)
 }
   return (
-    <View style={styles.container}>
-      <View style={styles.containerTitle}>
-        <Text style={styles.title}>Agregar Cita</Text>
-      </View>
-      <View style={styles.containerInput}>
-        <Text style={styles.label}>
-          Nombre
-        </Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={text => setName(text)}
-          placeholder="Nombre de la macota"
-        />
-      </View>
-      <View style={styles.containerInput}>
-        <Text style={styles.label}>
-          Propietario
-        </Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Nombre del dueño"
-          onChangeText={text => setProprietary(text)}
-        />
-      </View>
-      <View style={styles.containerInput}>
-        <Text style={styles.label}>
-          Telefono
-        </Text>
-        <TextInput
-          style={styles.input}
-          keyboardType="number-pad"
-          placeholder="Numero de contacto"
-          onChangeText={text => setPhone(text)}
-        />
-      </View>
-      <View style={styles.containerInput}>
-        <Text style={styles.label}>
-          Fecha
-        </Text>
+    <ScrollView style={{flex: 1}}>
+      <View style={styles.container}>
+        <View style={styles.containerTitle}>
+          <Text style={styles.title}>Agregar Cita</Text>
+        </View>
+        <View style={styles.containerInput}>
+          <Text style={styles.label}>
+            Mascota
+          </Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={text => setName(text)}
+            placeholder="Nombre de la macota"
+          />
+        </View>
+        <View style={styles.containerInput}>
+          <Text style={styles.label}>
+            Propietario
+          </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Nombre del dueño"
+            onChangeText={text => setProprietary(text)}
+          />
+        </View>
+        <View style={styles.containerInput}>
+          <Text style={styles.label}>
+            Telefono
+          </Text>
+          <TextInput
+            style={styles.input}
+            keyboardType="number-pad"
+            placeholder="Numero de contacto"
+            onChangeText={text => setPhone(text)}
+          />
+        </View>
+        <View style={styles.containerInput}>
+          <Text style={styles.label}>
+            Fecha
+          </Text>
+          <TouchableOpacity
+            onPress={showDatePicker}
+            style={styles.button}
+          >
+            <Text style={styles.textButtonPicker}>
+              Selecciona Fecha &or;
+            </Text>
+          </TouchableOpacity>
+          <DateTimePickerModal
+            mode="date"
+            locale="es_ES"
+            cancelTextIOS="Cancelar"
+            confirmTextIOS="Confirmar"
+            onCancel={hideDatePicker}
+            onConfirm={handleConfirmDate}
+            isVisible={isDatePickerVisible}
+            headerTextIOS="Selecciona una fecha"
+          />
+          <Text style={styles.textResultPicker}>
+            {date}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.label}>Hora</Text>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={showTimePicker}
+          >
+            <Text style={styles.textButtonPicker}>
+              Selecciona Hora &or;
+            </Text>
+          </TouchableOpacity>
+          <DateTimePickerModal
+            mode="time"
+            cancelTextIOS="Cancelar"
+            confirmTextIOS="Confirmar"
+            onCancel={hideTimePicker}
+            onConfirm={handleConfirmTime}
+            isVisible={isTimePickerVisible}
+            headerTextIOS="Selecciona una hora"
+          />
+          <Text style={styles.textResultPicker}>
+            {time}
+          </Text>
+        </View>
+        <View style={styles.containerInput}>
+          <Text style={styles.label}>
+            Sintomas
+          </Text>
+          <TextInput
+            multiline
+            style={styles.input}
+            placeholder="Sintomas que presenta"
+            onChangeText={text => setSymptoms(text)}
+          />
+        </View>
         <TouchableOpacity
-          onPress={showDatePicker}
-          style={styles.button}
+          activeOpacity={0.6}
+          onPress={createQuote}
+          style={styles.buttonAdd}
         >
-          <Text style={styles.textButtonPicker}>
-            Selecciona Fecha &or;
+          <Text style={styles.textButton}>
+            &rarr; Agregar
           </Text>
         </TouchableOpacity>
-        <DateTimePickerModal
-          mode="date"
-          locale="es_ES"
-          cancelTextIOS="Cancelar"
-          confirmTextIOS="Confirmar"
-          onCancel={hideDatePicker}
-          onConfirm={handleConfirmDate}
-          isVisible={isDatePickerVisible}
-          headerTextIOS="Selecciona una fecha"
-        />
-        <Text style={styles.textResultPicker}>
-          {date}
-        </Text>
       </View>
-      <View>
-        <Text style={styles.label}>Hora</Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={showTimePicker}
-        >
-          <Text style={styles.textButtonPicker}>
-            Selecciona Hora &or;
-          </Text>
-        </TouchableOpacity>
-        <DateTimePickerModal
-          mode="time"
-          cancelTextIOS="Cancelar"
-          confirmTextIOS="Confirmar"
-          onCancel={hideTimePicker}
-          onConfirm={handleConfirmTime}
-          isVisible={isTimePickerVisible}
-          headerTextIOS="Selecciona una hora"
-        />
-        <Text style={styles.textResultPicker}>
-          {time}
-        </Text>
-      </View>
-      <View style={styles.containerInput}>
-        <Text style={styles.label}>
-          Sintomas
-        </Text>
-        <TextInput
-          multiline
-          style={styles.input}
-          placeholder="Sintomas que presenta"
-          onChangeText={text => setSymptoms(text)}
-        />
-      </View>
-      <TouchableOpacity
-        activeOpacity={0.6}
-        onPress={createQuote}
-        style={styles.buttonAdd}
-      >
-        <Text style={styles.textButton}>
-          &rarr; Agregar
-        </Text>
-      </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 

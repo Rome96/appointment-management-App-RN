@@ -4,7 +4,6 @@ import {
   Text,
   StatusBar,
   StyleSheet,
-  ScrollView,
   SafeAreaView,
   TouchableOpacity
 } from 'react-native';
@@ -12,55 +11,23 @@ import QuoteList from './src/components/QuoteList'
 import Form from './src/components/Form'
 const App = () => {
   const [showForm, setShowForm] = useState(true)
-  const [quotes, setQuotes] = useState([
-    {
-      id: 1,
-      paciente: 'may',
-      propietario: 'Turi',
-      sintomas: 'test  ',
-    },
-    {
-      id: 2,
-      paciente: 'lucia',
-      propietario: 'Isaac',
-      sintomas: 'El paciente ',
-    },
-    {
-      id: 3,
-      paciente: 'nose',
-      propietario: 'Turi',
-      sintomas: 'El paciente',
-    },
-    {
-      id: 4,
-      paciente: 'tampoco se',
-      propietario: 'Isaac',
-      sintomas: 'El paciente ingreso',
-    },
-    {
-      id: 5,
-      paciente: 'tampoco se',
-      propietario: 'Isaac',
-      sintomas: 'El paciente ingreso',
-    },
-  ]);
+  const [quotes, setQuotes] = useState([]);
 
-   // setQuotes((newQuotes) => {
-    //   return (newQuotes = newQuotes.filter(quotes => quotes.id !== id));
-    // })
   const deleteQuote = (id) => {
+    console.log('citas antes', quotes)
     const newQuotes = quotes.filter(quote => quote.id !== id);
     setQuotes(newQuotes);
+    console.log('citas despues', quotes);
   }
 
   const onShowForm = () => (
     setShowForm(!showForm)
   )
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1}} showsVerticalScrollIndicator={false}>
       <StatusBar barStyle="dark-content" />
       <Text style={styles.titleHeader}>Citas</Text>
-      <ScrollView style={styles.container}>
+      <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={onShowForm}
@@ -73,17 +40,24 @@ const App = () => {
         </TouchableOpacity>
         {
           showForm ? (
-            <Form /> 
+            <Form
+              quotes={quotes}
+              setShowForm={setShowForm}
+              setQuotes={setQuotes}
+            /> 
           ):(
             <>
               <Text style={styles.title}>
                 {quotes.length ? 'Administra tus citas' : 'No hay citas'}
               </Text>
-              <QuoteList quotes={quotes} deleteQuote={deleteQuote} />    
+              <QuoteList
+                quotes={quotes}
+                deleteQuote={deleteQuote}
+              />    
             </>
           ) 
         }
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };

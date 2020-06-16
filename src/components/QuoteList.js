@@ -9,14 +9,18 @@ const QuoteList = ({quotes, deleteQuote}) => {
         data={quotes}
         scrollEnabled
         extraData={quotes}
+        showsVerticalScrollIndicator={false}
         keyExtractor={(item, index) => `quotes__${item.id}${index}`}
         renderItem={({item}) => (
           <Quote
             id={item.id}
             deleteQuote={deleteQuote}
-            paciente={item.paciente}
-            sintomas={item.sintomas}
-            propietario={item.propietario}
+            name={item.name}
+            date={item.date}
+            time={item.time}
+            phone={item.phone}
+            symptoms={item.symptoms}
+            proprietary={item.proprietary}
           />
         )}
       />

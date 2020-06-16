@@ -3,38 +3,48 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'rea
 
 const Quote = ({
   id,
-  paciente,
-  sintomas,
-  deleteQuote,
-  propietario,
+  name,
+  date,
+  time,
+  phone,
+  symptoms,
+  proprietary,
+  deleteQuote
 }) => {
 
-  const onDeleteQuotes = () => {
-    console.log('Id del array', id)
-    // Alert.alert('Atención', 'Estas seguro de eliminar esta cita?');
-    deleteQuote(id)
-  }
+  const onDeleteQuotes = () => deleteQuote(id)
 
   return (
     <ScrollView style={{flex: 1}}>
       <View style={styles.container}>
         <View style={styles.containerInfo}>
           <Text style={styles.label}>Paciente:</Text>
-          <Text style={styles.text}>{paciente}</Text>
+          <Text style={styles.text}>{name}</Text>
         </View>
         <View style={styles.containerInfo}>
           <Text style={styles.label}>Propietario:</Text>
-          <Text style={styles.text}>{propietario}</Text>
+          <Text style={styles.text}>{proprietary}</Text>
+        </View>
+        <View style={styles.containerInfo}>
+          <Text style={styles.label}>Telefono:</Text>
+          <Text style={styles.text}>{phone}</Text>
+        </View>
+        <View style={styles.containerInfo}>
+          <Text style={styles.label}>Fecha:</Text>
+          <Text style={styles.text}>{date}</Text>
+        </View>
+        <View style={styles.containerInfo}>
+          <Text style={styles.label}>Hora:</Text>
+          <Text style={styles.text}>{time}</Text>
         </View>
         <View style={styles.containerInfo}>
           <Text style={styles.label}>Sintomas:</Text>
-          <Text style={styles.text}>{sintomas}</Text>
+          <Text style={styles.text}>{symptoms}</Text>
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.containerButton}
-          onPress={onDeleteQuotes}
-        >
+          onPress={onDeleteQuotes}>
           <Text style={styles.textButton}>Eliminar &times;</Text>
         </TouchableOpacity>
       </View>
