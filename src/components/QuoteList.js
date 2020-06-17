@@ -3,7 +3,6 @@ import { View, Text, FlatList } from 'react-native'
 import Quote from './Quote'
 
 const QuoteList = ({quotes, deleteQuote}) => {
-  console.log('QUOTES:', quotes)
   return (
     <View style={{flex: 1}}>
       <FlatList

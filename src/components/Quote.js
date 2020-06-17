@@ -11,9 +11,6 @@ const Quote = ({
   proprietary,
   deleteQuote
 }) => {
-
-  const onDeleteQuotes = () => deleteQuote(id)
-
   return (
     <View style={{flex: 1}}>
       <View style={styles.container}>
@@ -44,7 +41,7 @@ const Quote = ({
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.containerButton}
-          onPress={onDeleteQuotes}>
+          onPress={() => deleteQuote(id)}>
           <Text style={styles.textButton}>Eliminar &times;</Text>
         </TouchableOpacity>
       </View>
