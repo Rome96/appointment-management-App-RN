@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
-
+import { useDispatch } from 'react-redux'
+import {deleteQuote} from '../redux/actions';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 const Quote = ({
   id,
   name,
@@ -9,8 +10,14 @@ const Quote = ({
   phone,
   symptoms,
   proprietary,
-  deleteQuote
 }) => {
+
+  const dispacth = useDispatch();
+
+  const onDeleteQuotes = () => {
+    dispacth(deleteQuote(id));
+  }
+
   return (
     <View style={{flex: 1}}>
       <View style={styles.container}>
@@ -41,7 +48,7 @@ const Quote = ({
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.containerButton}
-          onPress={() => deleteQuote(id)}>
+          onPress={onDeleteQuotes}>
           <Text style={styles.textButton}>Eliminar &times;</Text>
         </TouchableOpacity>
       </View>
