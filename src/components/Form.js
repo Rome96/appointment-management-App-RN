@@ -14,7 +14,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-const Form = ({quotes, setShowForm}) => {
+const Form = ({setShowForm}) => {
   const [date, setDate] = useState('')
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
@@ -250,15 +250,3 @@ const styles = StyleSheet.create({
 });
 
 export default Form
-
-// const mapStateToProps = ({ quotes }) => ({
-//   quotes: quotes.quotes
-// });
- 
-// const mapDispatchToProps = (dispatch) => ({
-//   addQuote: (quotes) => {
-//     return dispatch(addQuote(quotes))
-//   },
-// })
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Form)

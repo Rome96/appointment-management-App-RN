@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Form from './components/Form';
+import {useSelector} from 'react-redux';
 import QuoteList from './components/QuoteList';
-import {useDispatch, useSelector} from 'react-redux';
 import {
   View,
   Text,
@@ -13,10 +13,9 @@ import {
 
 const Root = () => {
   const [showForm, setShowForm] = useState(true);
-  const dispacth = useDispatch()
+  const onShowForm = () => setShowForm(!showForm);
   const quotes = useSelector(state => state.quotes);
 
-  const onShowForm = () => setShowForm(!showForm);
   return (
     <SafeAreaView style={{flex: 1}} showsVerticalScrollIndicator={false}>
       <StatusBar barStyle="dark-content" />
@@ -31,15 +30,13 @@ const Root = () => {
           </Text>
         </TouchableOpacity>
         {showForm ? (
-          <Form
-            setShowForm={setShowForm}
-          />
+          <Form setShowForm={setShowForm} />
         ) : (
           <>
             <Text style={styles.title}>
               {quotes.length ? 'Administra tus citas' : 'No hay citas'}
             </Text>
-            <QuoteList/>
+            <QuoteList />
           </>
         )}
       </View>

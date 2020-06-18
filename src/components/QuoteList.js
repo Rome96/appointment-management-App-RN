@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native'
 import Quote from './Quote'
-import {useSelector} from 'react-redux';
+import { View, FlatList } from 'react-native'
+import { useSelector } from 'react-redux';
 
 const QuoteList = () => {
-const quotes = useSelector(state => state.quotes);
-  console.log('QUOTES:', quotes)
+  const quotes = useSelector(state => state.quotes);
   return (
     <View style={{flex: 1}}>
       <FlatList
