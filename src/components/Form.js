@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
-import {connect} from 'react-redux';
-import { addQuote } from '../redux/actions/index'
+import {useDispatch} from 'react-redux';
+import {addQuote} from '../redux/actions';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {
   View,
@@ -14,7 +14,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-const Form = ({quotes, setQuotes, setShowForm}) => {
+const Form = ({quotes, setShowForm}) => {
   const [date, setDate] = useState('')
   const [name, setName] = useState('');
   const [time, setTime] = useState('');
@@ -23,6 +23,7 @@ const Form = ({quotes, setQuotes, setShowForm}) => {
   const [proprietary, setProprietary] = useState('')
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
+  const dispatch = useDispatch();
 
   //=========== Date ===========//
   const showDatePicker = () => {
@@ -82,10 +83,7 @@ const createQuote = () => {
     const quote = {name, date, time, phone, symptoms, proprietary};
     //asignar un ID
     quote.id = uuidv4()
-    
-    // setQuotes([...quotes, quote]);
-    addQuote([...quotes, quote]);
-
+    dispatch(addQuote(quote))    
     setShowForm(false)
 }
   return (
@@ -251,14 +249,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ quotes }) => ({
-  quotes: quotes.quotes
-});
- 
-const mapDispatchToProps = (dispatch) => ({
-  addQuote: (quotes) => {
-    return dispatch(addQuote(quotes))
-  },
-})
+export default Form
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form)
+// const mapStateToProps = ({ quotes }) => ({
+//   quotes: quotes.quotes
+// });
+ 
+// const mapDispatchToProps = (dispatch) => ({
+//   addQuote: (quotes) => {
+//     return dispatch(addQuote(quotes))
+//   },
+// })
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Form)

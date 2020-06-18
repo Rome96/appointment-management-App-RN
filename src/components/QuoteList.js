@@ -1,8 +1,10 @@
 import React from 'react';
 import { View, Text, FlatList } from 'react-native'
 import Quote from './Quote'
+import {useSelector} from 'react-redux';
 
-const QuoteList = ({quotes, deleteQuote}) => {
+const QuoteList = () => {
+const quotes = useSelector(state => state.quotes);
   console.log('QUOTES:', quotes)
   return (
     <View style={{flex: 1}}>
@@ -14,7 +16,6 @@ const QuoteList = ({quotes, deleteQuote}) => {
         renderItem={({item}) => (
           <Quote
             {...item}
-            deleteQuote={deleteQuote}
           />
         )}
       />
